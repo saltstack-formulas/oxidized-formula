@@ -1,0 +1,12 @@
+{%- from "oxidized/map.jinja" import oxidized with context -%}
+{%- set oxidized = oxidized.general -%}
+[Unit]
+Description=Oxidized - Network Device Configuration Backup Tool
+
+[Service]
+Environment=OXIDIZED_HOME={{ oxidized.home }}
+ExecStart=/usr/local/bin/oxidized
+User={{ oxidized.user }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,33 @@
+oxidized:
+  config:
+    interval: 3600
+    timeout: 20
+    retries: 3
+    vars:
+      remove_secret: true
+    rest: 127.0.0.1:8888
+    input:
+      default: ssh, telnet
+      debug: false
+      ssh:
+        secure: false
+    output:
+      default: git
+      git:
+        user: Oxidized
+        email: o@example.com
+        repo: '/var/lib/oxidized/devices.git'
+    source:
+      default: csv
+      csv:
+        file: '/etc/oxidized/router.db'
+        delimiter: '!ruby/regexp /:/'
+        map:
+          name: 0
+          model: 1
+          username: 2
+          password: 3
+        vars_map:
+          enable: 4
+  routers:
+    - 192.168.1.62:edgeos

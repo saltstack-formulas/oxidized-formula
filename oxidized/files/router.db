@@ -1,0 +1,3 @@
+{%- for unit in salt['pillar.get']('oxidized:routers') %}
+{{ unit }}
+{%- endfor -%}

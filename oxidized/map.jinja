@@ -1,0 +1,49 @@
+{% set oxidized = salt['pillar.get']('oxidized', {
+     'lookup': salt['grains.filter_by']({
+        'Debian': {
+            'pkgs': [
+                'ruby',
+                'ruby-dev',
+                'libsqlite3-dev',
+                'libssl-dev',
+                'pkg-config',
+                'cmake',
+                'libssh2-1-dev',
+            ],
+            'gems': [
+                'oxidized',
+                'oxidized-script',
+                'oxidized-web',
+            ],
+        },
+        'RedHat': {
+            'pkgs': [
+                'ruby-devel',
+                'gcc-c++',
+                'cmake',
+                'make',
+                'automake',
+                'libcurl-devel',
+                'openssl-devel',
+                'httpd-devel',
+                'sqlite-devel',
+            ],
+            'gems': [
+                'oxidized',
+                'oxidized-script',
+                'oxidized-web',
+            ],
+        },
+    }),
+    'general': {
+        'user': 'oxidized',
+        'group': 'oxidized',
+        'home': '/etc/oxidized',
+    },
+    'config': {
+        'source': { },
+        'output': { },
+        'log': '/var/log/oxidized.log',
+        'pid': '/var/run/oxidized.pid',
+    },
+}, merge=True) %}

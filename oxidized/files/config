@@ -1,0 +1,32 @@
+{%- from "oxidized/map.jinja" import oxidized with context -%}
+{%- set settings = oxidized.config -%}
+{%- set default_source = oxidized.config.source.default -%}
+
+{%- if settings is defined -%}
+
+{% for option, value in settings.iteritems() %}
+{% set section = option -%}
+{%- if value is mapping -%}
+{{ option }}:
+  {%- for option, value in value.iteritems() -%}
+  {%- if value is mapping -%}
+  {{ option }}:
+  {%- for option, value in value.iteritems() -%}
+    {%- if value is mapping %}
+    {{ option }}:
+    {%- for option, value in value.iteritems() %}
+      {{ option }}: {{ value }}
+    {%- endfor %}
+    {%- else %}
+    {{ option }}: {{ value }}
+    {%- endif -%}
+  {%- endfor %}
+  {% else %}
+  {{ option }}: {{ value }}
+  {% endif -%}
+  {%- endfor -%}
+{%- else -%}
+{{ option }}: {{ value }}
+{%- endif %}
+{%- endfor %}
+{% endif %}
