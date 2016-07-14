@@ -1,3 +1,4 @@
+{% include oxidized/config %}
 oxidized_systemd:
   file.managed:
     - name: /lib/systemd/system/oxidized.service
@@ -10,5 +11,9 @@ oxidized_systemd:
   service.running:
     - name: oxidized
     - enable: True
+    - require:
+      - file: oxidized_systemd
     - watch:
       - file: oxidized_systemd
+      - file: oxidized_router.db
+      - file: oxidized_config
