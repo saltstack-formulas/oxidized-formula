@@ -4,11 +4,11 @@
 
 {%- if settings is defined -%}
 
-{% for option, value in settings.iteritems() %}
+{%- for option, value in settings.iteritems() %}
 {% set section = option -%}
 {%- if value is mapping -%}
 {{ option }}:
-  {%- for option, value in value.iteritems() -%}
+  {% for option, value in value.iteritems() -%}
   {%- if value is mapping -%}
   {{ option }}:
   {%- for option, value in value.iteritems() -%}
@@ -21,7 +21,7 @@
     {{ option }}: {{ value }}
     {%- endif -%}
   {%- endfor %}
-  {% else %}
+  {% else -%}
   {{ option }}: {{ value }}
   {% endif -%}
   {%- endfor -%}
