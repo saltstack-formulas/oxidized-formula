@@ -1,0 +1,33 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: bento/debian-9
+  - name: ubuntu-18.04
+  # - name: centos-7 # Failed due: net-ssh requires Ruby version >= 2.2.6. 
+
+provisioner:
+  salt_version: latest
+  name: salt_solo
+  formula: oxidized
+  require_chef: false
+  pillars-from-files:
+    oxidized.sls: pillar.example
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - oxidized
+
+  state_top:
+    base:
+      '*':
+        - oxidized
+        - oxidized.config
+        - oxidized.routers
+        - oxidized.systemd
+
+suites:
+  - name: default
+
